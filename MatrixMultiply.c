@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-float inputValidation(int);
+double inputValidation(int);
 void matrixMulti(int *);
 
 int main()
@@ -38,7 +38,7 @@ void matrixMulti(int *size)
 {
     // below declaration will throw error in turbo C
     float mat1[size[0]][size[1]], mat2[size[2]][size[3]], resultMat[size[0]][size[3]], sum = 0; // these are the matrices
-    int j, i, k, count = 1;                                                 // j, i and k are loop variables
+    int j, i, k, count = 1;                                                                     // j, i and k are loop variables
 
     // below nested loops are used to store the elements of both the matrices
     for (k = 0; k <= 2;)
@@ -109,67 +109,52 @@ void matrixMulti(int *size)
 }
 
 // validating the user input, whether its size of matrix or an element
-float inputValidation(int type)
+double inputValidation(int type)
 {
-    char input[100];
-    long a;
-    double b;
-    int check, i = 1, j, k, pos;
+    char input[30];
+    double result_double;
+    long long result_long;
 
     while (1)
     {
-        check = scanf(" %[^\n]s", &input); //" %" will ignore the whitespaces
-
-        if (type == 1) // checking if user input negative size of matrix
+        if (fgets(input, sizeof(input), stdin) != NULL)
         {
-            if (input[0] == '-')
+            input[strcspn(input, "\n")] = '\0'; // removing the trailing spaces
+            char *endptr;
+
+            if (type == 0)
             {
-                printf("Size of matrix can't be negative\n");
-                fflush(stdin);
-                continue;
+                result_double = strtod(input, &endptr);
             }
-
-            if (check == 1)
+            else
             {
-                char *endptr;
-                a = strtol(input, &endptr, 10);
-
-                if (*endptr != '\0')
+                if(input[0] == "-")
                 {
-                    printf("Invalid input. please try again.\n");
+                    printf("size of matrix can't be negative\n");
                     fflush(stdin);
                 }
                 else
                 {
-                    return a;
+                    result_long = strtoll(input, &endptr, 10);
                 }
+            }
+
+            if (*endptr != '\0')
+            {
+                printf("Invalid input. Please try again.\n");
             }
             else
             {
-                return -1;
+                if(type == 0)
+                    return result_double;
+                else
+                {
+                    return result_long;
+                }
             }
         }
-        else if(type == 0)
+        else
         {
-            if (check == 1)
-            {
-                char *endptr;
-                b = strtof(input, &endptr);
-
-                if (*endptr != '\0')
-                {
-                    printf("Invalid input. please try again.\n");
-                    fflush(stdin);
-                }
-                else
-                {
-                    return (float)b;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return -1;
         }
     }
-}
