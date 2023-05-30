@@ -112,8 +112,7 @@ void matrixMulti(int *size)
 double inputValidation(int type)
 {
     char input[30];
-    double result_double;
-    long long result_long;
+    double result;
 
     while (1)
     {
@@ -122,35 +121,33 @@ double inputValidation(int type)
             input[strcspn(input, "\n")] = '\0'; // removing the trailing spaces
             char *endptr;
 
-            if (type == 0)
+            if (type == 1) // some checks for size of matrix
             {
-                result_double = strtod(input, &endptr);
-            }
-            else
-            {
-                if(input[0] == "-")
+                if (strstr(input, "-")) // negative value checking
                 {
                     printf("size of matrix can't be negative\n");
-                    fflush(stdin);
+                }
+                else if (strstr(input, ".")) // float value checking
+                {
+                    printf("size of matrix should be an integer\n");
                 }
                 else
                 {
-                    result_long = strtoll(input, &endptr, 10);
+                    calc:
+                    result = strtod(input, &endptr);
+                    if (*endptr != '\0')
+                    {
+                        printf("Invalid input. Please try again.\n");
+                    }
+                    else
+                    {
+                        return result;
+                    }
                 }
-            }
-
-            if (*endptr != '\0')
-            {
-                printf("Invalid input. Please try again.\n");
             }
             else
             {
-                if(type == 0)
-                    return result_double;
-                else
-                {
-                    return result_long;
-                }
+                goto calc;
             }
         }
         else
@@ -158,3 +155,4 @@ double inputValidation(int type)
             return -1;
         }
     }
+}
