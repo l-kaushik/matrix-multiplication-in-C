@@ -36,9 +36,38 @@ int main()
 
 void matrixMulti(int *size)
 {
-    // below declaration will throw error in turbo C
-    float mat1[size[0]][size[1]], mat2[size[2]][size[3]], resultMat[size[0]][size[3]], sum = 0; // these are the matrices
-    int j, i, k, count = 1;                                                                     // j, i and k are loop variables
+    float **mat1;
+    float **mat2;
+    float **resultMat; // these are matrices
+    
+    float sum = 0;
+
+    int j, i, k, count = 1;  // loop variables except count
+
+
+    // Allocating memory for the matrix 1
+    float **mat1 = (float **)malloc(size[0] * sizeof(float *)); // array of pointers
+
+    for(int i = 0; i < size[0]; i++)
+    {
+        mat1[i] = (float *)malloc(size[1] * sizeof(float)); // array of float for each pointers
+    }
+
+    // Allocating memory for the matrix 2
+    float **mat2 = (float **)malloc(size[2] * sizeof(float *)); 
+
+    for(int i = 0; i < size[2]; i++)
+    {
+        mat2[i] = (float *)malloc(size[3] * sizeof(float)); 
+    }
+
+  // Allocating memory for the resultant matrix
+    float **resultMat = (float **)malloc(size[0] * sizeof(float *));
+
+    for(int i = 0; i < size[0]; i++)
+    {
+        resultMat[i] = (float *)malloc(size[3] * sizeof(float)); 
+    }
 
     // below nested loops are used to store the elements of both the matrices
     for (k = 0; k <= 2;)
@@ -147,7 +176,7 @@ double inputValidation(int type)
             }
             else
             {
-                goto calc;
+                goto calc; //jumping to calc
             }
         }
         else
