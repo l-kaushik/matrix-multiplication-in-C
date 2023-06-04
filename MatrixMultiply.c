@@ -46,7 +46,7 @@ void matrixMulti(int *size)
 
 
     // Allocating memory for the matrix 1
-    float **mat1 = (float **)malloc(size[0] * sizeof(float *)); // array of pointers
+    **mat1 = (float **)malloc(size[0] * sizeof(float *)); // array of pointers
 
     for(int i = 0; i < size[0]; i++)
     {
@@ -54,7 +54,7 @@ void matrixMulti(int *size)
     }
 
     // Allocating memory for the matrix 2
-    float **mat2 = (float **)malloc(size[2] * sizeof(float *)); 
+    **mat2 = (float **)malloc(size[2] * sizeof(float *)); 
 
     for(int i = 0; i < size[2]; i++)
     {
@@ -62,7 +62,7 @@ void matrixMulti(int *size)
     }
 
   // Allocating memory for the resultant matrix
-    float **resultMat = (float **)malloc(size[0] * sizeof(float *));
+    *resultMat = (float **)malloc(size[0] * sizeof(float *));
 
     for(int i = 0; i < size[0]; i++)
     {
