@@ -49,7 +49,7 @@ This is the code of main function and to be honest the flow of program here is l
 
 First I am using a for loop to print the input message on screen and before incrementing the loop, taking input from the user, using custom `inputValidation()` function.
 
-I have already explained the workflow of inputValidation function in detail [here](https://github.com/l-kaushik/input-validation-in-C) but I'll explain, few changes that I've added into the function later in this repository.
+I have already explained the workflow of inputValidation function in detail [here](https://github.com/l-kaushik/input-validation-in-C) but I'll explain it again later, because of few changes that I've added into the function to achieve the requirements of this program.
 
 Below the for loop there is an if condition, that checks if both matrices are suitable for matrix multiplication or not.
 
@@ -112,10 +112,8 @@ double inputValidation(int type)
 This is the input validation function, which will check for any invalid input throughout the program, whether it is the input related to the size of matrices or the elements of matrices.
 
 The function takes one argument named `type`:
-* This type argument can contain 1 and any other value.
-* If type is set to one that means the input is related to the size of matrix and size of matrix can't be a negative number, a decimal number and an alphabet.
-
-And that's what we checking here:
+* This type argument can contain any value but when the value is 1, we also running some new checks, later I've explained it so no worries.
+* If the `type` is set to one that means the input is related to the size of matrix and size of matrix can't be a negative number, can't be a decimal number and also can't be an alphabet.
 
 ```C
 while (1)
@@ -126,7 +124,7 @@ while (1)
         char *endptr;
 ```
 
-Entering into an infinite loop that runs until condition is true, then the code from `if` to `char *endptr;` is reponsible for taking input, explained in detail [here](https://github.com/l-kaushik/input-validation-in-C).
+while here is acting as an infinite loop that runs until condition is true, then the code from `if` to `char *endptr;` is reponsible for taking input, explained in detail [here](https://github.com/l-kaushik/input-validation-in-C).
 
 ```C
 if (type == 1) // some checks for size of matrix
@@ -160,11 +158,11 @@ else
 ```
 This conditional block is just after the `char *endptr;` and in the condition we checking if type is 1 or not:
 * If it's 1 then we checking for any negative values.
-* 2nd we checking for decimal values if no negative values are there.
+* 2nd we checking for decimal values only when there are no negative values.
 * At last, checking if there is a presence of any alphabets or not.
 * After verifying these conditions returning the value.
 
-In the else block there is line: `got calc;` which will jump the program directly to alphabets checking only when, when the type is not equals to 1, because elements can be a decimal and a negative number.
+In the last else block there is line: `goto calc;` which will jump the program directly to alphabets checking only when, when the type is not equals to 1, because elements can be a decimal and a negative number.
 
 **NOTE:-** In the main function, where we taking the input from user using `size[i] = (int)inputValidation(1);` the value returned by the `inputValidation()` is getting typecasted into the int because our function is returning a type `double` value.
 
@@ -221,7 +219,7 @@ float **mat2;
 float **resultMat;
 ```
 
-These are the variable declaration or more specifically a declaration of 2d dynamic array.
+These are the variable declaration or more specifically the declarations of 2 dimensional, float type dynamic arrays.
 
 Let me explain it:
 * `float *;` indicates a pointer to a float, or a pointer that points either to a single float value or to the first index/element of a dynamically allocated array of floats.
@@ -230,18 +228,18 @@ Let me explain it:
 
     For example:- 
     
-    a1[] = {1, 2, 3}, 
+    a1[ ] = {1, 2, 3}, 
     
-    a2[] = {3, 4, 5}, 
+    a2[ ] = {3, 4, 5}, 
     
-    a3[] = {5, 6, 7},
+    a3[ ] = {5, 6, 7},
     
     here a1, a2 and a3 are 3 arrays, I have write the integer values just to make it look clear.
 
-    a[] = [&a1, &a2, &a3]
+    a[ ] = [&a1, &a2, &a3]
 
-    here a is another array that contains, the address of the other 3 arrays, an in short I can say that, a is an array that points to the another arrays of type int.
+    here a is another array that contains, the addresses of the other 3 arrays, in short I can say that, 'a' is an array that points to the another arrays, of type int.
 
     We getting same functionality with `float **mat1;` but dynamically using [malloc()](https://www.geeksforgeeks.org/dynamic-memory-allocation-in-c-using-malloc-calloc-free-and-realloc/) function.
 
- **Above two points are can be hard to grasp and in that case, I would suggest you to google about them, if you didn't get them.**
+ **Above two points are can be hard to grasp and in that case, I would suggest you to google about them, if you didn't get it.**
