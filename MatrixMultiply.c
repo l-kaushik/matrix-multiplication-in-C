@@ -62,7 +62,7 @@ void matrixMulti(int *size)
     }
 
   // Allocating memory for the resultant matrix
-    *resultMat = (float **)malloc(size[0] * sizeof(float *));
+    resultMat = (float **)malloc(size[0] * sizeof(float *));
 
     for(int i = 0; i < size[0]; i++)
     {
